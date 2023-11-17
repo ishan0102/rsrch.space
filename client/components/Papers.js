@@ -19,30 +19,30 @@ const DummyPapers = [
   },
 ];
 
-function Paper({ name, date, tagline, link}) {
+function Paper({ name, date, tagline, link }) {
   return (
     <a href={link} className="flex justify-between text-secondary py-1 group">
       <strong className="flex-none font-medium text-gray-900 group-hover:text-indigo-600 dark:text-gray-100 dark:group-hover:text-indigo-500">{name}</strong>
       <p className="ml-auto hidden sm:inline mr-8">{tagline}</p>
       <p>{date}</p>
     </a>
-  )
+  );
 }
 
 export function Papers() {
   return (
     <div className="max-h-screen w-full flex-col overflow-y-scroll scrollbar-hide px-8">
       <div className="mx-auto w-full max-w-2xl mt-4 sm:mt-8 mb-52 md:mb-32">
-        {DummyPapers.map((project, index) => {
-          return <Paper
+        {papers.map((paper, index) => (
+          <Paper
             key={index}
-            name={project.name}
-            date={project.date}
-            tagline={project.tagline}
-            link={project.link}
+            name={paper.name}
+            date={paper.date}
+            tagline={paper.tagline}
+            link={paper.link}
           />
-        })}
+        ))}
       </div>
     </div>
-  )
+  );
 }
