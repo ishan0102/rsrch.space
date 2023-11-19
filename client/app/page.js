@@ -10,13 +10,19 @@ export default function Home() {
       <div className="flex justify-center items-center space-x-4 py-6 border-b border-gray-200">
         <button
           className={`px-4 text-gray-900 font-medium group hover:text-indigo-600 ${showPapers ? 'text-indigo-600' : ''}`}
-          onClick={() => setShowPapers(true)}
+          onClick={() => {
+            setShowPapers(true);
+            window.scrollTo(0, 0);
+          }}
         >
           Papers
         </button>
         <button
           className={`px-4 text-gray-900 font-medium group hover:text-indigo-600 ${!showPapers ? 'text-indigo-600' : ''}`}
-          onClick={() => setShowPapers(false)}
+          onClick={() => {
+            setShowPapers(false);
+            window.scrollTo(0, 0);
+          }}
         >
           Links
         </button>
