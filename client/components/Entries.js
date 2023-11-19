@@ -18,6 +18,7 @@ function Entry({ title, created, link }) {
 
 export function Entries({ database }) {
   const [entries, setEntries] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
 
   async function fetchPosts() {
     const cachedEntries = sessionStorage.getItem(database);
@@ -39,10 +40,24 @@ export function Entries({ database }) {
     fetchPosts();
   }, [database]);
 
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value.toLowerCase());
+  };
+
+  const filteredEntries = entries.filter(entry => 
+    entry.title.toLowerCase().includes(searchTerm)
+  );
+
   return (
     <div className="max-h-screen w-full flex-col overflow-y-scroll scrollbar-hide px-4 sm:px-8">
       <div className="mx-auto w-full max-w-5xl mt-4 mb-52 md:mb-32">
-        {entries.map((entry, index) => (
+        <input
+          type="text"
+          placeholder="Search"
+          onChange={handleSearchChange}
+          className="p-2 border border-gray-400 rounded-md mb-4 bg-[#f0eadd] placeholder-gray-500"
+        />
+        {filteredEntries.map((entry, index) => (
           <Entry
             key={index}
             title={entry.title}
