@@ -12,7 +12,7 @@ export default function Home() {
 
   return (
     <div>
-      <div className="flex justify-center items-center space-x-4 py-6 border-b border-gray-200">
+      <div className="flex justify-center items-center fixed top-0 w-full space-x-4 py-6 border-b border-gray-200 bg-off-white">
         <button
           className={`px-4 text-gray-900 font-medium group hover:text-indigo-600 ${showPapers ? 'text-indigo-600' : ''}`}
           onClick={() => {

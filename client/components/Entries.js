@@ -51,8 +51,8 @@ export function Entries({ database, supabase }) {
   );
 
   return (
-    <div className="px-4 sm:px-8">
-      <div className="mx-auto max-w-5xl mt-4 mb-52 md:mb-32">
+    <div className="px-4 mt-24 mb-52 md:mb-32">
+      <div className="mx-auto max-w-5xl">
         <input
           type="text"
           placeholder="Search"
