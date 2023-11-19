@@ -10,7 +10,7 @@ function Entry({ title, created, link }) {
   const date = dateObj.toISOString().split('T')[0];
   return (
     <a href={link.replace("pdf", "abs")} className="flex justify-between text-secondary py-1 group text-md">
-      <strong className="font-medium text-gray-900 group-hover:text-indigo-600 dark:text-gray-100 dark:group-hover:text-indigo-500">{title}</strong>
+      <strong className="font-medium break-all sm:break-normal text-gray-900 group-hover:text-indigo-600 dark:text-gray-100 dark:group-hover:text-indigo-500">{title}</strong>
       <p className="font-berkeley whitespace-nowrap ml-12">{date}</p>
     </a>
   );
