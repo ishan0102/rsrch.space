@@ -1,7 +1,6 @@
 import logging
 import os
 import sys
-import postgrest
 from dotenv import load_dotenv
 from notion_client import Client
 from supabase import create_client
@@ -22,6 +21,8 @@ notion = Client(auth=notion_token)
 
 def insert_data(database_id, table_name, notion, supabase):
     start_cursor = None
+    data_batch = []
+    
     while True:
         response = notion.databases.query(database_id=database_id, start_cursor=start_cursor)
         for item in tqdm(response["results"]):
@@ -35,16 +36,16 @@ def insert_data(database_id, table_name, notion, supabase):
                 data["date"] = item["properties"]["Date"]["date"]["start"],
                 data["authors"] = item["properties"]["Authors"]["rich_text"][0]["plain_text"]
 
-            try:
-                supabase.table(table_name).insert(data).execute()
-            except postgrest.exceptions.APIError as e:
-                if e.code != "23505":  # Ignoring the duplicate entry error
-                    raise e
-        
+            data_batch.append(data)
+            
+        supabase.table(table_name).upsert(data_batch).execute()
+        data_batch = []
+
         if response["has_more"]:
             start_cursor = response["next_cursor"]
         else:
             break
+
 
 
 if __name__ == "__main__":
