@@ -7,11 +7,11 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 
 function Entry({ title, created, link }) {
   const dateObj = new Date(created);
-  const formattedDate = dateObj.toISOString().split('T')[0];
+  const date = dateObj.toISOString().split('T')[0];
   return (
     <a href={link.replace("pdf", "abs")} className="flex justify-between text-secondary py-1 group text-md">
-      <strong className="flex-none font-medium font-berkeley text-gray-900 group-hover:text-indigo-600 dark:text-gray-100 dark:group-hover:text-indigo-500">{formattedDate}</strong>
-      <p className="mr-auto pl-12">{title}</p>
+      <strong className="font-medium text-gray-900 group-hover:text-indigo-600 dark:text-gray-100 dark:group-hover:text-indigo-500">{title}</strong>
+      <p className="font-berkeley whitespace-nowrap ml-12">{date}</p>
     </a>
   );
 }
@@ -34,7 +34,7 @@ export function Entries({ database }) {
 
   return (
     <div className="max-h-screen w-full flex-col overflow-y-scroll scrollbar-hide px-8">
-      <div className="mx-auto w-full max-w-5xl mb-52 md:mb-32">
+      <div className="mx-auto w-full max-w-5xl mt-4 mb-52 md:mb-32">
         {entries.map((entry, index) => (
           <Entry
             key={index}
