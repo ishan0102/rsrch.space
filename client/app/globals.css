@@ -27,6 +27,14 @@
     font-style: normal;
   }
 
+  /* Berkeley Font */
+  @font-face {
+    font-family: 'berkeley';
+    src: url('../public/berkeley-updated.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
+
   /* Invert highlight colors */
   ::selection {
     background-color: #6366f1;
@@ -43,6 +51,10 @@
 
   .font-grenette {
     font-family: 'grenette_regular', 'dazzed_medium', sans-serif;
+  }
+
+  .font-berkeley {
+    font-family: 'berkeley', monospace;
   }
 
   /* For Webkit-based browsers (Chrome, Safari and Opera) */
