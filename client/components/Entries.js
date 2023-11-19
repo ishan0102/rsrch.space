@@ -56,7 +56,7 @@ export function Entries({ database }) {
   );
 
   return (
-    <div className="max-h-screen w-full flex-col overflow-y-scroll scrollbar-hide px-4 sm:px-8">
+    <div className="max-h-screen w-full flex-col overflow-y-scroll px-4 sm:px-8">
       <div className="mx-auto w-full max-w-5xl mt-4 mb-52 md:mb-32">
         <input
           type="text"

@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { Entries } from '../components/Entries';
 
 export default function Home() {
-  // State to toggle between Links and Papers
   const [showPapers, setShowPapers] = useState(true);
 
   return (
