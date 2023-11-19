@@ -1,9 +1,4 @@
 import { useState, useEffect } from 'react';
-import { createClient } from '@supabase/supabase-js';
-
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY;
-const supabase = createClient(supabaseUrl, supabaseKey);
 
 function Entry({ title, created, link }) {
   const dateObj = new Date(created);
@@ -16,7 +11,7 @@ function Entry({ title, created, link }) {
   );
 }
 
-export function Entries({ database }) {
+export function Entries({ database, supabase }) {
   const [entries, setEntries] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
 

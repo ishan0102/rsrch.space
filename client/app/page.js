@@ -1,6 +1,11 @@
 "use client"
 import React, { useState } from 'react';
 import { Entries } from '../components/Entries';
+import { createClient } from '@supabase/supabase-js';
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY;
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 export default function Home() {
   const [showPapers, setShowPapers] = useState(true);
@@ -27,7 +32,7 @@ export default function Home() {
           Links
         </button>
       </div>
-      {showPapers ? <Entries database="papers" /> : <Entries database="links" />}
+      {showPapers ? <Entries database="papers" supabase={supabase} /> : <Entries database="links" supabase={supabase} />}
     </div>
   );
 }
