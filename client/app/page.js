@@ -1,7 +1,6 @@
 "use client"
 import React, { useState } from 'react';
-import { Papers } from '../components/Papers';
-import { Links } from '../components/Links';
+import { Entries } from '../components/Entries';
 
 export default function Home() {
   // State to toggle between Links and Papers
@@ -23,7 +22,7 @@ export default function Home() {
           Links
         </button>
       </div>
-      {showPapers ? <Papers /> : <Links />}
+      {showPapers ? <Entries database="papers" /> : <Entries database="links" />}
     </main>
   );
 }

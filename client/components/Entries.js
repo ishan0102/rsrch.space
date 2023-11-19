@@ -5,7 +5,7 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-function Paper({ title, created, link }) {
+function Entry({ title, created, link }) {
   const dateObj = new Date(created);
   const formattedDate = dateObj.toISOString().split('T')[0];
   return (
@@ -16,31 +16,31 @@ function Paper({ title, created, link }) {
   );
 }
 
-export function Papers() {
-  const [papers, setPapers] = useState([]);
+export function Entries({ database }) {
+  const [entries, setEntries] = useState([]);
 
   async function fetchPosts() {
     const { data } = await supabase
-      .from('papers')
+      .from(database)
       .select('*')
       .order('notion_timestamp', { ascending: false });
 
-    setPapers(data);
+    setEntries(data);
   }
 
   useEffect(() => {
     fetchPosts();
-  }, []);
+  }, [database]);
 
   return (
     <div className="max-h-screen w-full flex-col overflow-y-scroll scrollbar-hide px-8">
       <div className="mx-auto w-full max-w-5xl mb-52 md:mb-32">
-        {papers.map((paper, index) => (
-          <Paper
+        {entries.map((entry, index) => (
+          <Entry
             key={index}
-            title={paper.title}
-            created={paper.notion_timestamp}
-            link={paper.url}
+            title={entry.title}
+            created={entry.notion_timestamp}
+            link={entry.url}
           />
         ))}
       </div>
