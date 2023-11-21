@@ -4,7 +4,7 @@ function Entry({ title, created, link }) {
   const dateObj = new Date(created);
   const date = dateObj.toISOString().split('T')[0];
   return (
-    <a href={link} className="flex justify-between text-secondary py-1 group text-md">
+    <a href={link} target="_blank" className="flex justify-between text-secondary py-1 group text-md">
       <strong className="font-medium break-word sm:break-normal text-gray-900 group-hover:text-indigo-600 dark:text-gray-100 dark:group-hover:text-indigo-500">{title}</strong>
       <p className="font-berkeley whitespace-nowrap ml-4 sm:ml-12">{date}</p>
     </a>
@@ -42,7 +42,8 @@ export function Entries({ database, supabase }) {
   const handleShuffleClick = () => {
     if (filteredEntries.length > 0) {
       const randomEntry = filteredEntries[Math.floor(Math.random() * filteredEntries.length)];
-      window.location.href = randomEntry.url.replace(/pdf(?=.)/, "abs").replace(/v\d+$/, "");
+      const modifiedUrl = randomEntry.url.replace(/pdf(?=.)/, "abs").replace(/v\d+$/, "");
+      window.open(modifiedUrl, '_blank').focus();
     }
   };
 
