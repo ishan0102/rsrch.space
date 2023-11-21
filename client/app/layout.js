@@ -2,6 +2,7 @@ import './globals.css'
 import { GoogleAnalytics } from "../components/GoogleAnalytics";
 
 export const metadata = {
+  metadataBase: new URL('http://localhost:3000'),
   title: 'rsrch space',
   description: 'Stream of my favorite papers and links.',
   openGraph: {
@@ -16,16 +17,20 @@ export const metadata = {
     ],
   },
   twitter: {
-    handle: '@ishan0102',
+    card: 'summary_large_image',
     site: '@ishan0102',
-    cardType: 'summary_large_image',
-  },
+    title: 'rsrch space',
+    description: 'Stream of my favorite papers and links',
+    image: 'https://www.rsrch.space/thumbnail.png'
+  }
 }
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <link rel="icon" href="/favicon.ico" sizes="any" />
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:creator" content="@ishan0102" />
       <body>
         <GoogleAnalytics />
         {children}
