@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@notionhq/client": "^2.2.13",
-    "@supabase/supabase-js": "^2.38.4",
+    "@supabase/supabase-js": "^2.39.1",
     "encoding": "^0.1.13",
     "next": "13.5.6",
     "react": "^18",

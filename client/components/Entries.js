@@ -47,10 +47,17 @@ export function Entries({ database, supabase }) {
     }
   };
 
-  const filteredEntries = entries.filter(entry => 
-    entry.title.toLowerCase().includes(searchTerm)
-  );
-
+  const filteredEntries = entries.filter(entry => {
+    const normalizedTitle = entry.title?.replace(/\s+/g, '').toLowerCase();
+    const normalizedLink = entry.url?.replace(/\s+/g, '').toLowerCase();
+    const normalizedSearchTerm = searchTerm.replace(/\s+/g, '').toLowerCase();
+    console.log(normalizedSearchTerm);
+    console.log(normalizedTitle);
+    console.log(normalizedLink);
+  
+    return normalizedTitle?.includes(normalizedSearchTerm) || normalizedLink?.includes(normalizedSearchTerm);
+  });
+  
   return (
     <div className="px-4 mt-24 pb-40 md:pb-8">
       <div className="mx-auto max-w-5xl">
