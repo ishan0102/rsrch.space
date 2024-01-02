@@ -2,11 +2,14 @@ import { useState, useEffect } from 'react';
 
 function Entry({ title, created, link }) {
   const dateObj = new Date(created);
-  const date = dateObj.toISOString().split('T')[0];
+  const easternTime = dateObj.toLocaleString('en-US', { timeZone: 'America/New_York' });
+  const date = easternTime.split(',')[0];
+  const formattedDate = new Date(date).toISOString().split('T')[0];
+
   return (
     <a href={link} target="_blank" className="flex justify-between text-secondary py-1 group text-md">
       <strong className="font-medium break-word sm:break-normal text-gray-900 group-hover:text-indigo-600 dark:text-gray-100 dark:group-hover:text-indigo-500">{title}</strong>
-      <p className="font-berkeley whitespace-nowrap ml-4 sm:ml-12">{date}</p>
+      <p className="font-berkeley whitespace-nowrap ml-4 sm:ml-12">{formattedDate}</p>
     </a>
   );
 }
@@ -51,10 +54,6 @@ export function Entries({ database, supabase }) {
     const normalizedTitle = entry.title?.replace(/\s+/g, '').toLowerCase();
     const normalizedLink = entry.url?.replace(/\s+/g, '').toLowerCase();
     const normalizedSearchTerm = searchTerm.replace(/\s+/g, '').toLowerCase();
-    console.log(normalizedSearchTerm);
-    console.log(normalizedTitle);
-    console.log(normalizedLink);
-  
     return normalizedTitle?.includes(normalizedSearchTerm) || normalizedLink?.includes(normalizedSearchTerm);
   });
   
