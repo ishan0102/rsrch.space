@@ -8,20 +8,11 @@ const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 export default function Home() {
-  const [showPapers, setShowPapers] = useState(true);
+  const [showPapers, setShowPapers] = useState(false);
 
   return (
     <div>
       <div className="flex justify-center items-center fixed top-0 w-full space-x-4 py-6 border-b border-gray-200 bg-off-white">
-        <button
-          className={`px-4 text-gray-900 font-medium group hover:text-indigo-600 ${showPapers ? 'text-indigo-600' : ''}`}
-          onClick={() => {
-            setShowPapers(true);
-            window.scrollTo(0, 0);
-          }}
-        >
-          Papers
-        </button>
         <button
           className={`px-4 text-gray-900 font-medium group hover:text-indigo-600 ${!showPapers ? 'text-indigo-600' : ''}`}
           onClick={() => {
@@ -30,6 +21,15 @@ export default function Home() {
           }}
         >
           Links
+        </button>
+        <button
+          className={`px-4 text-gray-900 font-medium group hover:text-indigo-600 ${showPapers ? 'text-indigo-600' : ''}`}
+          onClick={() => {
+            setShowPapers(true);
+            window.scrollTo(0, 0);
+          }}
+        >
+          Papers
         </button>
       </div>
       {showPapers ? <Entries database="papers" supabase={supabase} /> : <Entries database="links" supabase={supabase} />}
