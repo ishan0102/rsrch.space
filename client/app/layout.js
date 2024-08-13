@@ -1,29 +1,29 @@
-import './globals.css'
 import { GoogleAnalytics } from "../components/GoogleAnalytics";
+import "./globals.css";
 
 export const metadata = {
-  metadataBase: new URL('http://www.rsrch.space'),
-  title: 'rsrch space',
-  description: 'Stream of my favorite papers and links.',
+  metadataBase: new URL("http://www.rsrch.space"),
+  title: "rsrch space",
+  description: "Stream of my favorite papers and links.",
   openGraph: {
-    type: 'website',
-    url: 'https://www.rsrch.space',
-    site_name: 'rsrch space',
+    type: "website",
+    url: "https://www.rsrch.space",
+    site_name: "rsrch space",
     images: [
       {
-        url: 'https://www.rsrch.space/thumbnail.png',
-        alt: 'rsrch.space homepage',
+        url: "https://www.rsrch.space/thumbnail.png",
+        alt: "rsrch.space homepage",
       },
     ],
   },
   twitter: {
-    card: 'summary_large_image',
-    site: '@ishan0102',
-    title: 'rsrch space',
-    description: 'Stream of my favorite papers and links',
-    image: 'https://www.rsrch.space/thumbnail.png'
-  }
-}
+    card: "summary_large_image",
+    site: "@ishan0102",
+    title: "rsrch space",
+    description: "Stream of my favorite papers and links",
+    image: "https://www.rsrch.space/thumbnail.png",
+  },
+};
 
 export default function RootLayout({ children }) {
   return (
@@ -36,5 +36,5 @@ export default function RootLayout({ children }) {
         {children}
       </body>
     </html>
-  )
+  );
 }
