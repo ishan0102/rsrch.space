@@ -1,4 +1,4 @@
-import { GoogleAnalytics } from "../components/GoogleAnalytics";
+import GoogleAnalytics from "./providers/GoogleAnalytics";
 import "./globals.css";
 
 export const metadata = {
