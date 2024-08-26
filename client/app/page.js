@@ -18,7 +18,7 @@ export default function Home() {
     <QueryClientProvider client={queryClient}>
       <div className="min-h-screen">
         <nav className="sticky top-0 bg-off-white shadow-sm z-10">
-          <div className="container mx-auto px-4 py-3">
+          <div className="mx-auto px-4 py-3">
             <div className="flex items-center justify-between">
               <div className="flex space-x-4 items-center">
                 <button
@@ -43,7 +43,7 @@ export default function Home() {
                 >
                   Papers
                 </button>
-                <label className="inline-flex items-center cursor-pointer pl-2">
+                {/* <label className="inline-flex items-center cursor-pointer pl-2">
                   <input
                     type="checkbox"
                     className="sr-only peer"
@@ -54,7 +54,7 @@ export default function Home() {
                   <span className="ml-3 text-sm font-medium text-gray-700">
                     {isExplorerView ? "Explorer" : "List"}
                   </span>
-                </label>
+                </label> */}
               </div>
               <a
                 href="https://ishanshah.me"
@@ -67,8 +67,8 @@ export default function Home() {
             </div>
           </div>
         </nav>
-        <main className="container mx-auto px-4 py-8">
-          <Entries database={showPapers ? "papers" : "links"} supabase={supabase} isExplorerView={isExplorerView} />
+        <main className="mx-auto px-4 py-8">
+          <Entries database={showPapers ? "papers" : "links"} supabase={supabase} isExplorerView={false} />
         </main>
       </div>
     </QueryClientProvider>
