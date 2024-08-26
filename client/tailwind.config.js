@@ -11,6 +11,7 @@ module.exports = {
       colors: {
         'off-black': '#1e1e21',
         'off-white': '#f5f2e9',
+        'primary': '#4f46e5',
       },
     },
     screens: {

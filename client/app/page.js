@@ -12,17 +12,18 @@ const queryClient = new QueryClient();
 
 export default function Home() {
   const [showPapers, setShowPapers] = useState(false);
+  const [isExplorerView, setIsExplorerView] = useState(false);
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div>
-        <div className="fixed top-0 w-full pt-4 pb-2 border-b border-gray-200 bg-off-white">
-          <div className="container mx-auto">
-            <div className="flex flex-col items-center space-y-2">
-              <div className="flex space-x-4">
+      <div className="min-h-screen">
+        <nav className="sticky top-0 bg-off-white shadow-sm z-10">
+          <div className="container mx-auto px-4 py-3">
+            <div className="flex items-center justify-between">
+              <div className="flex space-x-4 items-center">
                 <button
-                  className={`px-4 text-gray-900 font-medium group hover:text-indigo-600 ${
-                    !showPapers ? "text-indigo-600" : ""
+                  className={`px-4 py-2 rounded-md text-sm font-medium ${
+                    !showPapers ? "bg-primary text-white" : "text-gray-700"
                   }`}
                   onClick={() => {
                     setShowPapers(false);
@@ -32,8 +33,8 @@ export default function Home() {
                   Links
                 </button>
                 <button
-                  className={`px-4 text-gray-900 font-medium group hover:text-indigo-600 ${
-                    showPapers ? "text-indigo-600" : ""
+                  className={`px-4 py-2 rounded-md text-sm font-medium ${
+                    showPapers ? "bg-primary text-white" : "text-gray-700"
                   }`}
                   onClick={() => {
                     setShowPapers(true);
@@ -42,26 +43,33 @@ export default function Home() {
                 >
                   Papers
                 </button>
+                <label className="inline-flex items-center cursor-pointer pl-2">
+                  <input
+                    type="checkbox"
+                    className="sr-only peer"
+                    checked={isExplorerView}
+                    onChange={() => setIsExplorerView(!isExplorerView)}
+                  />
+                  <div className="relative w-11 h-6 bg-primary/10 peer-focus:outline-none rounded-full peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+                  <span className="ml-3 text-sm font-medium text-gray-700">
+                    {isExplorerView ? "Explorer" : "List"}
+                  </span>
+                </label>
               </div>
-              <div className="text-[12px] text-gray-500">
-                <span>Created by </span>
-                <a
-                  href="https://ishanshah.me"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-indigo-600 hover:underline hover:underline-offset-4"
-                >
-                  Ishan
-                </a>
-              </div>
+              <a
+                href="https://ishanshah.me"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm font-medium text-primary"
+              >
+                Created by Ishan
+              </a>
             </div>
           </div>
-        </div>
-        {showPapers ? (
-          <Entries database="papers" supabase={supabase} />
-        ) : (
-          <Entries database="links" supabase={supabase} />
-        )}
+        </nav>
+        <main className="container mx-auto px-4 py-8">
+          <Entries database={showPapers ? "papers" : "links"} supabase={supabase} isExplorerView={isExplorerView} />
+        </main>
       </div>
     </QueryClientProvider>
   );
