@@ -57,12 +57,12 @@ export default function Home() {
                 </label> */}
               </div>
               <a
-                href="https://ishanshah.me"
+                href="https://donate.stripe.com/9AQaEK6A26Dz6kgbII"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-sm font-medium text-primary"
               >
-                Created by Ishan
+                Donate
               </a>
             </div>
           </div>
