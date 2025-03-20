@@ -1,4 +1,4 @@
-import GoogleAnalytics from "./providers/GoogleAnalytics";
+import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 
 export const metadata = {
@@ -32,7 +32,7 @@ export default function RootLayout({ children }) {
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:creator" content="@ishan0102" />
       <body>
-        <GoogleAnalytics />
+        <Analytics />
         {children}
       </body>
     </html>
