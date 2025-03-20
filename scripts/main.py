@@ -11,7 +11,6 @@ load_dotenv()
 supabase_url = os.getenv("SUPABASE_URL")
 supabase_key = os.getenv("SUPABASE_KEY")
 notion_token = os.getenv("NOTION_TOKEN")
-papers_database_id = os.getenv("PAPERS_DATABASE_ID")
 links_database_id = os.getenv("LINKS_DATABASE_ID")
 
 supabase = create_client(supabase_url, supabase_key)
@@ -32,10 +31,6 @@ def insert_data(database_id, table_name, notion, supabase):
                 "notion_timestamp": item["created_time"],
             }
 
-            if table_name == "papers":
-                data["date"] = item["properties"]["Date"]["date"]["start"],
-                data["authors"] = item["properties"]["Authors"]["rich_text"][0]["plain_text"]
-
             data_batch.append(data)
             
         supabase.table(table_name).upsert(data_batch).execute()
@@ -49,8 +44,5 @@ def insert_data(database_id, table_name, notion, supabase):
 
 
 if __name__ == "__main__":
-    print("Inserting papers into Supabase")
-    insert_data(papers_database_id, "papers", notion, supabase)
-
     print("Inserting links into Supabase")
     insert_data(links_database_id, "links", notion, supabase)
