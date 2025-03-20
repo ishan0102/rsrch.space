@@ -1,2 +1,2 @@
 # rsrch.space
-Sharing my favorite links and papers.
+Ishan's favorite links.

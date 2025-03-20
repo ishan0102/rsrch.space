@@ -4,7 +4,7 @@ import "./globals.css";
 export const metadata = {
   metadataBase: new URL("http://www.rsrch.space"),
   title: "rsrch space",
-  description: "Stream of my favorite papers and links.",
+  description: "Ishan's favorite links.",
   openGraph: {
     type: "website",
     url: "https://www.rsrch.space",
@@ -20,7 +20,7 @@ export const metadata = {
     card: "summary_large_image",
     site: "@ishan0102",
     title: "rsrch space",
-    description: "Stream of my favorite papers and links",
+    description: "Ishan's favorite links",
     image: "https://www.rsrch.space/thumbnail.png",
   },
 };
