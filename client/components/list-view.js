@@ -1,3 +1,4 @@
+import { SearchIcon, ShuffleIcon } from "lucide-react";
 import { useState } from "react";
 
 function Entry({ title, created, link }) {
@@ -12,12 +13,12 @@ function Entry({ title, created, link }) {
     <a
       href={link}
       target="_blank"
-      className="flex justify-between text-secondary py-1 group text-md"
+      className="text-secondary text-md group flex justify-between py-1"
     >
-      <strong className="font-medium break-word sm:break-normal text-gray-900 group-hover:text-primary">
+      <strong className="break-word font-medium text-gray-900 group-hover:text-primary sm:break-normal">
         {title}
       </strong>
-      <p className="font-berkeley whitespace-nowrap ml-4 sm:ml-12">
+      <p className="font-berkeley ml-4 whitespace-nowrap sm:ml-12">
         {formattedDate}
       </p>
     </a>
@@ -54,21 +55,24 @@ export default function ListView({ entries }) {
 
   return (
     <>
-      <div className="flex justify-between items-center mb-4">
-        <input
-          type="text"
-          placeholder="Search"
-          onChange={handleSearchChange}
-          className="placeholder-gray-600 p-2 border border-gray-400 rounded-md bg-[#f0eadd] flex-grow mr-4 max-w-[240px]"
-        />
+      <div className="mb-4 flex items-center justify-between gap-3">
+        <div className="relative max-w-[240px] flex-grow">
+          <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+            <SearchIcon className="h-4 w-4 text-gray-500" />
+          </div>
+          <input
+            type="text"
+            placeholder="Search"
+            onChange={handleSearchChange}
+            className="w-full rounded-md border border-gray-400 bg-[#f0eadd] px-3 py-2.5 pl-8 text-sm font-medium text-gray-600 placeholder-gray-500"
+          />
+        </div>
         <button
           onClick={handleShuffleClick}
-          className="px-4 py-3 rounded-md text-sm font-medium bg-primary text-white flex items-center justify-center"
+          className="flex h-[42px] items-center justify-center rounded-md border border-gray-400 bg-[#f0eadd] px-4 py-2.5 text-sm font-medium text-gray-600"
         >
-          Shuffle
-          <svg width="18" height="18" viewBox="0 0 92 92" className="ml-2 fill-current">
-            <path d="M68.2 30C64 30 53.5 40.4 45.8 47.9 34.2 59.1 23.2 70 14.4 70H9c-2.2 0-4-1.8-4-4s1.8-4 4-4h5.4c5.6 0 16.8-11.2 25.8-19.9 11-10.6 20.5-20.1 28-20.1h5.2l-5.5-5.3c-1.6-1.6-1.6-3.9 0-5.5s4.1-1.6 5.7 0l12.3 12.3c.8.8 1.2 1.8 1.2 2.8 0 1.1-.4 2.1-1.2 2.8L73.5 41.4c-.8.8-1.8 1.1-2.8 1.1-1 0-2-.4-2.8-1.2-1.6-1.6-1.6-4.2 0-5.7l5.5-5.6h-5.2zm5.3 20.6c-1.6-1.6-4.1-1.6-5.7 0-1.6 1.6-1.6 4.2 0 5.8l5.5 5.6h-5.2c-3.3 0-8.8-4.9-14.2-9.9-1.6-1.5-4.1-1.5-5.7.1-1.5 1.6-1.4 4.3.2 5.8 8.4 7.7 14 12 19.8 12h5.2l-5.5 5.3c-1.6 1.6-1.6 4 0 5.6.8.8 1.8 1.1 2.8 1.1 1 0 2-.4 2.8-1.2l12.3-12.3c.8-.8 1.2-1.8 1.2-2.8 0-1.1-.4-2.1-1.2-2.8L73.5 50.6zM9 30h5.4c4.2 0 10.5 5.4 15.5 9.9.8.7 1.7 1.1 2.7 1.1 1.1 0 2.2-.4 3-1.3 1.5-1.6 1.4-4.3-.3-5.8-7.8-7.1-14.4-12-20.9-12H9c-2.2 0-4 1.8-4 4S6.8 30 9 30z"></path>
-          </svg>
+          <span className="mr-2">Shuffle</span>
+          <ShuffleIcon className="h-4 w-4 text-gray-500" />
         </button>
       </div>
       {filteredEntries.map((entry, index) => (
