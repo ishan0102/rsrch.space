@@ -1,21 +1,32 @@
-import { useQuery } from "@tanstack/react-query";
+import { useState, useEffect } from "react";
 import ListView from "./list-view";
-import ExplorerView from "./explorer-view";
 
-export default function Entries({ database, supabase, isExplorerView }) {
-  const fetchPosts = async () => {
-    const { data } = await supabase
-      .from(database)
-      .select("*")
-      .order("notion_timestamp", { ascending: false });
-    return data;
-  };
+export default function Entries({ supabase }) {
+  const [entries, setEntries] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isError, setIsError] = useState(false);
 
-  const { data: entries, isLoading, isError } = useQuery({
-    queryKey: ["entries", database],
-    queryFn: fetchPosts,
-    staleTime: 1000 * 60 * 5, // 5 minutes
-  });
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        setIsLoading(true);
+        const { data, error } = await supabase
+          .from("links")
+          .select("url, notion_timestamp, title")
+          .order("notion_timestamp", { ascending: false });
+        
+        if (error) throw error;
+        setEntries(data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setIsError(true);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchPosts();
+  }, [supabase]);
 
   if (isLoading) return (
     <div className="flex justify-center items-center">
@@ -27,13 +38,5 @@ export default function Entries({ database, supabase, isExplorerView }) {
 
   if (isError) return <div className="text-center">Error fetching data</div>;
 
-  return (
-    <div>
-      {isExplorerView ? (
-        <ExplorerView entries={entries} />
-      ) : (
-        <ListView entries={entries} />
-      )}
-    </div>
-  );
+  return <ListView entries={entries} />;
 }
