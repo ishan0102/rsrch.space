@@ -45,7 +45,7 @@ export default function Home() {
   return (
     <div className="min-h-screen">
       <nav className="sticky top-0 z-10 bg-off-white shadow-sm">
-        <div className="mx-auto px-4 pb-5 pt-3">
+        <div className="mx-auto px-4 pb-4 pt-3">
           <div className="flex flex-col gap-2">
             <div className="flex items-center justify-between">
               <h1 className="text-base font-medium text-primary">
@@ -115,7 +115,7 @@ export default function Home() {
           </div>
         </div>
       </nav>
-      <main className="mx-auto p-4">
+      <main className="mx-auto px-4 py-2">
         <Entries
           supabase={supabase}
           searchTerm={searchTerm}

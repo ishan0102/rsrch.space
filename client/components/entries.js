@@ -1,6 +1,43 @@
-import { LoaderIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import ListView from "./list-view";
+
+function SkeletonEntry({ titleWidth }) {
+  return (
+    <div className="flex justify-between py-1">
+      <div className="flex-1">
+        <div
+          className={`h-5 animate-pulse rounded bg-[#e8e5dc] ${titleWidth}`}
+        ></div>
+      </div>
+      <div className="font-berkeley ml-4 whitespace-nowrap sm:ml-12">
+        <div className="h-6 w-24 animate-pulse rounded bg-[#e8e5dc]"></div>
+      </div>
+    </div>
+  );
+}
+
+function LoadingSkeleton() {
+  const titleWidths = [
+    "w-3/4",
+    "w-5/6",
+    "w-2/3",
+    "w-4/5",
+    "w-full",
+    "w-3/5",
+    "w-4/6",
+    "w-2/3",
+    "w-5/6",
+    "w-3/4",
+  ];
+
+  return (
+    <div className="py-0.5">
+      {Array.from({ length: 50 }).map((_, index) => (
+        <SkeletonEntry key={index} titleWidth={titleWidths[index % titleWidths.length]} />
+      ))}
+    </div>
+  );
+}
 
 export default function Entries({
   supabase,
@@ -36,14 +73,9 @@ export default function Entries({
     };
 
     fetchPosts();
-  }, [supabase, onLoadingChange]);
+  }, []);
 
-  if (isLoading)
-    return (
-      <div className="flex items-center justify-center">
-        <LoaderIcon className="size-6 animate-spin" />
-      </div>
-    );
+  if (isLoading) return <LoadingSkeleton />;
 
   if (isError) return <div className="text-center">Error fetching data</div>;
 
