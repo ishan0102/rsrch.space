@@ -2,7 +2,14 @@ import { LoaderIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import ListView from "./list-view";
 
-export default function Entries({ supabase }) {
+export default function Entries({
+  supabase,
+  searchTerm,
+  filters,
+  onFilteredCountChange,
+  onFilteredEntriesChange,
+  onLoadingChange,
+}) {
   const [entries, setEntries] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
@@ -11,6 +18,7 @@ export default function Entries({ supabase }) {
     const fetchPosts = async () => {
       try {
         setIsLoading(true);
+        onLoadingChange(true);
         const { data, error } = await supabase
           .from("links")
           .select("url, notion_timestamp, title")
@@ -23,11 +31,12 @@ export default function Entries({ supabase }) {
         setIsError(true);
       } finally {
         setIsLoading(false);
+        onLoadingChange(false);
       }
     };
 
     fetchPosts();
-  }, [supabase]);
+  }, [supabase, onLoadingChange]);
 
   if (isLoading)
     return (
@@ -38,5 +47,13 @@ export default function Entries({ supabase }) {
 
   if (isError) return <div className="text-center">Error fetching data</div>;
 
-  return <ListView entries={entries} />;
+  return (
+    <ListView
+      entries={entries}
+      searchTerm={searchTerm}
+      filters={filters}
+      onFilteredCountChange={onFilteredCountChange}
+      onFilteredEntriesChange={onFilteredEntriesChange}
+    />
+  );
 }

@@ -5,6 +5,11 @@
 @layer base {
   html {
     @apply max-h-screen scrollbar-hide text-base antialiased;
+    overscroll-behavior: none;
+  }
+
+  body {
+    overscroll-behavior: none;
   }
 
   /* handles safari overscroll background color */
