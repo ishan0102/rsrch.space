@@ -14,29 +14,19 @@ export default function Home() {
       <nav className="sticky top-0 z-10 bg-off-white shadow-sm">
         <div className="mx-auto px-4 py-3">
           <div className="flex items-center justify-between">
-            <div className="flex flex-col">
-              <h1 className="text-base font-medium text-primary">
-                rsrch space
-              </h1>
-              <Link
-                href="https://ishanshah.me"
-                className="-mt-0.5 text-sm font-medium text-gray-400 hover:text-primary"
-              >
-                by Ishan
-              </Link>
-            </div>
+            <h1 className="text-base font-medium text-primary">
+              rsrch space
+            </h1>
             <Link
-              href="https://donate.stripe.com/9AQaEK6A26Dz6kgbII"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary/90"
+              href="https://ishanshah.me"
+              className="text-sm font-medium text-gray-400 hover:text-primary"
             >
-              Donate
+              A project by Ishan
             </Link>
           </div>
         </div>
       </nav>
-      <main className="mx-auto px-4 py-8">
+      <main className="mx-auto p-4">
         <Entries supabase={supabase} />
       </main>
     </div>
