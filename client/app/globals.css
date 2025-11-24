@@ -40,6 +40,14 @@
     font-style: normal;
   }
 
+  /* Fransans Font */
+  @font-face {
+    font-family: 'fransans';
+    src: url('../public/fransans-solid.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+  }
+
   /* Invert highlight colors */
   ::selection {
     background-color: #6366f1;
@@ -55,6 +63,10 @@
 
   .font-berkeley {
     font-family: 'berkeley', monospace;
+  }
+
+  .font-fransans {
+    font-family: 'fransans', sans-serif;
   }
 
   /* For Webkit-based browsers (Chrome, Safari and Opera) */

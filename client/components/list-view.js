@@ -17,7 +17,7 @@ function Entry({ title, created, link }) {
       <strong className="break-word font-medium text-gray-900 group-hover:text-primary sm:break-normal">
         {title}
       </strong>
-      <p className="font-berkeley ml-4 whitespace-nowrap sm:ml-12">
+      <p className="font-berkeley text-gray-500 ml-4 whitespace-nowrap sm:ml-12">
         {formattedDate}
       </p>
     </a>
