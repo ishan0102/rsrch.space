@@ -1,6 +1,6 @@
 "use client";
 
-import { BookIcon, BrainIcon, SearchIcon, ShuffleIcon } from "lucide-react";
+import { BookIcon, BrainIcon, SearchIcon, ShuffleIcon, XIcon } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { LinkList } from "./link-list";
@@ -11,6 +11,7 @@ export default function HomeClient({ entries }) {
     arxiv: false,
     ai: false,
   });
+  const [selectedDomain, setSelectedDomain] = useState(null);
   const [filteredCount, setFilteredCount] = useState(entries.length);
   const [filteredEntries, setFilteredEntries] = useState(entries);
 
@@ -53,7 +54,16 @@ export default function HomeClient({ entries }) {
               </Link>
             </div>
             <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 flex-wrap">
+                {selectedDomain && (
+                  <button
+                    onClick={() => setSelectedDomain(null)}
+                    className="flex items-center gap-1.5 h-[42px] px-3 rounded-md border border-primary bg-primary/10 text-primary text-sm font-medium"
+                  >
+                    <span>{selectedDomain}</span>
+                    <XIcon className="h-3.5 w-3.5" />
+                  </button>
+                )}
                 <div className="relative max-w-[240px] flex-grow">
                   <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
                     <SearchIcon className="h-4 w-4 text-gray-500" />
@@ -100,7 +110,7 @@ export default function HomeClient({ entries }) {
                 onClick={handleShuffleClick}
                 className="flex h-[42px] items-center justify-center rounded-md border border-gray-400 bg-[#f0eadd] px-4 py-2.5 text-sm font-medium text-gray-600"
               >
-                <span className="mr-2">Shuffle</span>
+                <span className="mr-2">Random</span>
                 <ShuffleIcon className="h-4 w-4 text-gray-600" />
               </button>
             </div>
@@ -112,6 +122,8 @@ export default function HomeClient({ entries }) {
           entries={entries}
           searchTerm={searchTerm}
           filters={filters}
+          selectedDomain={selectedDomain}
+          onDomainClick={setSelectedDomain}
           onFilteredCountChange={setFilteredCount}
           onFilteredEntriesChange={setFilteredEntries}
         />

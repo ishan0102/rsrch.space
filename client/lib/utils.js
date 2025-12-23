@@ -6,6 +6,15 @@ export function getDomain(url) {
   }
 }
 
+export function getBaseDomain(url) {
+  const domain = getDomain(url);
+  const parts = domain.replace(/^www\./, "").split(".");
+  if (parts.length >= 2) {
+    return parts.slice(-2).join(".");
+  }
+  return domain;
+}
+
 export function formatDate(timestamp) {
   const dateObj = new Date(timestamp);
   const easternTime = dateObj.toLocaleString("en-US", {

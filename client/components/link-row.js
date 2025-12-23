@@ -1,26 +1,43 @@
 "use client";
 
 import { Favicon } from "./favicon";
-import { getDomain, formatDate } from "@/lib/utils";
+import { getDomain, getBaseDomain, formatDate } from "@/lib/utils";
 
-export function LinkRow({ title, created, link }) {
+export function LinkRow({ title, created, link, onDomainClick }) {
+  const domain = getDomain(link);
+  const baseDomain = getBaseDomain(link);
+
+  const handleDomainClick = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    onDomainClick?.(baseDomain);
+  };
+
   return (
-    <a
-      href={link}
-      target="_blank"
-      className="text-secondary text-md group flex justify-between py-1"
-    >
-      <span className="flex items-start gap-2 min-w-0">
+    <div className="flex items-start justify-between py-1 gap-4">
+      <a
+        href={link}
+        target="_blank"
+        className="flex items-start gap-2 min-w-0 group flex-1"
+      >
         <span className="mt-1 flex-shrink-0">
-          <Favicon domain={getDomain(link)} />
+          <Favicon domain={domain} />
         </span>
         <strong className="break-word font-medium text-gray-900 group-hover:text-primary sm:break-normal">
           {title}
         </strong>
-      </span>
-      <p className="font-berkeley text-gray-500 ml-4 whitespace-nowrap sm:ml-12">
-        {formatDate(created)}
-      </p>
-    </a>
+      </a>
+      <div className="flex items-center gap-3 flex-shrink-0">
+        <button
+          onClick={handleDomainClick}
+          className="hidden sm:block text-xs text-gray-400 hover:text-primary hover:underline transition-colors"
+        >
+          {baseDomain}
+        </button>
+        <p className="font-berkeley text-gray-500 text-sm whitespace-nowrap">
+          {formatDate(created)}
+        </p>
+      </div>
+    </div>
   );
 }

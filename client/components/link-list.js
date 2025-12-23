@@ -2,13 +2,15 @@
 
 import { useEffect, useMemo } from "react";
 import { LinkRow } from "./link-row";
-import { normalizeForSearch, transformArxivUrl } from "@/lib/utils";
+import { normalizeForSearch, transformArxivUrl, getBaseDomain } from "@/lib/utils";
 import { matchesFilters } from "@/lib/filters";
 
 export function LinkList({
   entries,
   searchTerm,
   filters,
+  selectedDomain,
+  onDomainClick,
   onFilteredCountChange,
   onFilteredEntriesChange,
 }) {
@@ -19,9 +21,11 @@ export function LinkList({
       const link = normalizeForSearch(entry.url);
       const matchesSearch = title.includes(search) || link.includes(search);
       if (!matchesSearch) return false;
-      return matchesFilters(filters, link, title);
+      if (!matchesFilters(filters, link, title)) return false;
+      if (selectedDomain && getBaseDomain(entry.url) !== selectedDomain) return false;
+      return true;
     });
-  }, [entries, searchTerm, filters]);
+  }, [entries, searchTerm, filters, selectedDomain]);
 
   useEffect(() => {
     onFilteredCountChange(filteredEntries.length);
@@ -36,6 +40,7 @@ export function LinkList({
           title={entry.title}
           created={entry.notion_timestamp}
           link={transformArxivUrl(entry.url)}
+          onDomainClick={onDomainClick}
         />
       ))}
     </>
