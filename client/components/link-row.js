@@ -30,7 +30,7 @@ export function LinkRow({ title, created, link, onDomainClick }) {
       <div className="flex items-center gap-3 flex-shrink-0">
         <button
           onClick={handleDomainClick}
-          className="hidden sm:block text-xs text-gray-400 hover:text-primary hover:underline transition-colors"
+          className="hidden sm:block text-xs text-gray-500 hover:text-primary"
         >
           {baseDomain}
         </button>

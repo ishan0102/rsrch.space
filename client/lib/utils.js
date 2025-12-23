@@ -16,12 +16,14 @@ export function getBaseDomain(url) {
 }
 
 export function formatDate(timestamp) {
-  const dateObj = new Date(timestamp);
-  const easternTime = dateObj.toLocaleString("en-US", {
-    timeZone: "America/New_York",
+  const date = new Date(timestamp);
+  const formatter = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "America/Los_Angeles",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
   });
-  const date = easternTime.split(",")[0];
-  return new Date(date).toISOString().split("T")[0];
+  return formatter.format(date);
 }
 
 export function normalizeForSearch(str) {
