@@ -1,4 +1,61 @@
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { Globe } from "lucide-react";
+
+function getFaviconUrls(domain) {
+  if (!domain) return [];
+
+  const cleanHostname = domain.replace(/^www\./, "");
+
+  // Extract base domain from any subdomain
+  const parts = cleanHostname.split(".");
+  let baseDomain = cleanHostname;
+  if (parts.length >= 3) {
+    baseDomain = parts.slice(-2).join(".");
+  }
+
+  return [
+    `https://www.google.com/s2/favicons?domain=${baseDomain}&sz=128`,
+    `https://www.google.com/s2/favicons?domain=www.${baseDomain}&sz=128`,
+    `https://www.google.com/s2/favicons?domain=${cleanHostname}&sz=128`,
+  ];
+}
+
+function Favicon({ domain }) {
+  const [currentUrlIndex, setCurrentUrlIndex] = useState(0);
+  const [showFallback, setShowFallback] = useState(false);
+  const faviconUrls = getFaviconUrls(domain);
+
+  const handleError = () => {
+    if (currentUrlIndex < faviconUrls.length - 1) {
+      setCurrentUrlIndex(currentUrlIndex + 1);
+    } else {
+      setShowFallback(true);
+    }
+  };
+
+  // Check if image is the default Google globe (16x16 or very small)
+  const handleLoad = (e) => {
+    const img = e.target;
+    // Google returns a tiny default icon for unknown domains
+    if (img.naturalWidth <= 16 && img.naturalHeight <= 16) {
+      setShowFallback(true);
+    }
+  };
+
+  if (showFallback || faviconUrls.length === 0) {
+    return <Globe className="w-4 h-4 flex-shrink-0 text-gray-400" />;
+  }
+
+  return (
+    <img
+      src={faviconUrls[currentUrlIndex]}
+      alt=""
+      className="w-4 h-4 rounded-full flex-shrink-0 object-cover"
+      onError={handleError}
+      onLoad={handleLoad}
+    />
+  );
+}
 
 function Entry({ title, created, link }) {
   const dateObj = new Date(created);
@@ -8,15 +65,28 @@ function Entry({ title, created, link }) {
   const date = easternTime.split(",")[0];
   const formattedDate = new Date(date).toISOString().split("T")[0];
 
+  // Extract domain for favicon
+  let domain = "";
+  try {
+    domain = new URL(link).hostname;
+  } catch (e) {
+    domain = "";
+  }
+
   return (
     <a
       href={link}
       target="_blank"
       className="text-secondary text-md group flex justify-between py-1"
     >
-      <strong className="break-word font-medium text-gray-900 group-hover:text-primary sm:break-normal">
-        {title}
-      </strong>
+      <span className="flex items-start gap-2 min-w-0">
+        <span className="mt-1 flex-shrink-0">
+          <Favicon domain={domain} />
+        </span>
+        <strong className="break-word font-medium text-gray-900 group-hover:text-primary sm:break-normal">
+          {title}
+        </strong>
+      </span>
       <p className="font-berkeley text-gray-500 ml-4 whitespace-nowrap sm:ml-12">
         {formattedDate}
       </p>
