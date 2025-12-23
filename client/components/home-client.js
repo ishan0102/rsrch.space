@@ -3,7 +3,7 @@
 import { BookIcon, BrainIcon, SearchIcon, ShuffleIcon } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
-import ListView from "./list-view";
+import { LinkList } from "./link-list";
 
 export default function HomeClient({ entries }) {
   const [searchTerm, setSearchTerm] = useState("");
@@ -108,7 +108,7 @@ export default function HomeClient({ entries }) {
         </div>
       </nav>
       <main className="mx-auto px-4 py-2">
-        <ListView
+        <LinkList
           entries={entries}
           searchTerm={searchTerm}
           filters={filters}
