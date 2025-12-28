@@ -1,6 +1,9 @@
 import { createClient } from "@supabase/supabase-js";
 import HomeClient from "@/components/home-client";
 
+// Disable caching to always fetch fresh data from Supabase
+export const dynamic = "force-dynamic";
+
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
