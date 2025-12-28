@@ -1,14 +1,15 @@
 import { createClient } from "@supabase/supabase-js";
 import HomeClient from "@/components/home-client";
+import type { Entry } from "@/lib/types";
 
 // Disable caching to always fetch fresh data from Supabase
 export const dynamic = "force-dynamic";
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY;
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY!;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-async function getEntries() {
+async function getEntries(): Promise<Entry[]> {
   const { data, error } = await supabase
     .from("links")
     .select("url, notion_timestamp, title")
@@ -19,7 +20,7 @@ async function getEntries() {
     return [];
   }
 
-  return data;
+  return data ?? [];
 }
 
 export default async function Home() {

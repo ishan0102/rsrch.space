@@ -4,6 +4,17 @@ import { useEffect, useMemo } from "react";
 import { LinkRow } from "./link-row";
 import { normalizeForSearch, transformArxivUrl, getBaseDomain } from "@/lib/utils";
 import { matchesFilters } from "@/lib/filters";
+import type { Entry, Filters } from "@/lib/types";
+
+interface LinkListProps {
+  entries: Entry[];
+  searchTerm: string;
+  filters: Filters;
+  selectedDomain: string | null;
+  onDomainClick: (domain: string) => void;
+  onFilteredCountChange: (count: number) => void;
+  onFilteredEntriesChange: (entries: Entry[]) => void;
+}
 
 export function LinkList({
   entries,
@@ -13,7 +24,7 @@ export function LinkList({
   onDomainClick,
   onFilteredCountChange,
   onFilteredEntriesChange,
-}) {
+}: LinkListProps) {
   const filteredEntries = useMemo(() => {
     const search = normalizeForSearch(searchTerm);
     return entries.filter((entry) => {

@@ -1,3 +1,5 @@
+import type { Filters } from "./types";
+
 export const AI_ORGS = [
   "openai.com",
   "anthropic.com",
@@ -8,7 +10,7 @@ export const AI_ORGS = [
   "ai.meta",
   "meta.com/research",
   "deepmind.com",
-];
+] as const;
 
 export const AI_TERMS = [
   "ai",
@@ -17,9 +19,13 @@ export const AI_TERMS = [
   "neural",
   "llm",
   "language model",
-];
+] as const;
 
-export function matchesFilters(filters, link, title) {
+export function matchesFilters(
+  filters: Filters,
+  link: string,
+  title: string | undefined
+): boolean {
   if (filters.arxiv && !link.includes("arxiv")) return false;
   if (filters.ai) {
     const hasAiOrg = AI_ORGS.some((org) => link.includes(org));

@@ -4,22 +4,27 @@ import { BookIcon, BrainIcon, SearchIcon, ShuffleIcon, XIcon } from "lucide-reac
 import Link from "next/link";
 import { useState } from "react";
 import { LinkList } from "./link-list";
+import type { Entry, Filters } from "@/lib/types";
 
-export default function HomeClient({ entries }) {
+interface HomeClientProps {
+  entries: Entry[];
+}
+
+export default function HomeClient({ entries }: HomeClientProps) {
   const [searchTerm, setSearchTerm] = useState("");
-  const [filters, setFilters] = useState({
+  const [filters, setFilters] = useState<Filters>({
     arxiv: false,
     ai: false,
   });
-  const [selectedDomain, setSelectedDomain] = useState(null);
+  const [selectedDomain, setSelectedDomain] = useState<string | null>(null);
   const [filteredCount, setFilteredCount] = useState(entries.length);
-  const [filteredEntries, setFilteredEntries] = useState(entries);
+  const [filteredEntries, setFilteredEntries] = useState<Entry[]>(entries);
 
-  const handleSearchChange = (event) => {
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value.toLowerCase());
   };
 
-  const handleFilterToggle = (filter) => {
+  const handleFilterToggle = (filter: keyof Filters) => {
     setFilters((prev) => ({
       ...prev,
       [filter]: !prev[filter],
@@ -33,7 +38,7 @@ export default function HomeClient({ entries }) {
       const modifiedUrl = randomEntry.url
         .replace(/pdf(?=.)/, "abs")
         .replace(/v\d+$/, "");
-      window.open(modifiedUrl, "_blank").focus();
+      window.open(modifiedUrl, "_blank")?.focus();
     }
   };
 

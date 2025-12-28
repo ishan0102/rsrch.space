@@ -3,11 +3,18 @@
 import { Favicon } from "./favicon";
 import { getDomain, getBaseDomain, formatDate } from "@/lib/utils";
 
-export function LinkRow({ title, created, link, onDomainClick }) {
+interface LinkRowProps {
+  title: string;
+  created: string;
+  link: string;
+  onDomainClick?: (domain: string) => void;
+}
+
+export function LinkRow({ title, created, link, onDomainClick }: LinkRowProps) {
   const domain = getDomain(link);
   const baseDomain = getBaseDomain(link);
 
-  const handleDomainClick = (e) => {
+  const handleDomainClick = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     onDomainClick?.(baseDomain);

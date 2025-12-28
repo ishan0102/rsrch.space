@@ -1,14 +1,15 @@
+import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 
-export const metadata = {
+export const metadata: Metadata = {
   metadataBase: new URL("http://www.rsrch.space"),
   title: "rsrch space",
   description: "Ishan's favorite links.",
   openGraph: {
     type: "website",
     url: "https://www.rsrch.space",
-    site_name: "rsrch space",
+    siteName: "rsrch space",
     images: [
       {
         url: "https://www.rsrch.space/thumbnail.png",
@@ -21,16 +22,18 @@ export const metadata = {
     site: "@ishan0102",
     title: "rsrch space",
     description: "Ishan's favorite links",
-    image: "https://www.rsrch.space/thumbnail.png",
+    images: ["https://www.rsrch.space/thumbnail.png"],
   },
 };
 
-export default function RootLayout({ children }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en">
       <link rel="icon" href="/favicon.ico" sizes="any" />
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:creator" content="@ishan0102" />
       <body>
         <Analytics />
         {children}

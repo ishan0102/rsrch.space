@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Globe } from "lucide-react";
 
-function getFaviconUrls(domain) {
+function getFaviconUrls(domain: string | undefined): string[] {
   if (!domain) return [];
   const clean = domain.replace(/^www\./, "");
   const parts = clean.split(".");
@@ -15,7 +15,11 @@ function getFaviconUrls(domain) {
   ];
 }
 
-export function Favicon({ domain }) {
+interface FaviconProps {
+  domain: string | undefined;
+}
+
+export function Favicon({ domain }: FaviconProps) {
   const [urlIndex, setUrlIndex] = useState(0);
   const [showFallback, setShowFallback] = useState(false);
   const urls = getFaviconUrls(domain);
