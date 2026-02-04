@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/react";
+import Script from "next/script";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -32,9 +33,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <link rel="icon" href="/favicon.ico" sizes="any" />
-      <body>
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <Script id="theme-init" strategy="beforeInteractive">
+          {`(function(){try{var k='rsrch.theme';var t=localStorage.getItem(k);var d=(t==='dark')||(!t&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.classList.toggle('dark',d);}catch(e){}})();`}
+        </Script>
+      </head>
+      <body className="bg-off-white text-gray-800 dark:bg-off-black dark:text-gray-100">
         <Analytics />
         {children}
       </body>

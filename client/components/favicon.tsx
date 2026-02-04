@@ -33,7 +33,7 @@ export function Favicon({ domain }: FaviconProps) {
   };
 
   if (showFallback || !urls.length) {
-    return <Globe className="w-4 h-4 flex-shrink-0 text-gray-400" />;
+    return <Globe className="w-4 h-4 flex-shrink-0 text-gray-400 dark:text-gray-500" />;
   }
 
   return (

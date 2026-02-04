@@ -6,10 +6,15 @@
   html {
     @apply max-h-screen scrollbar-hide text-base antialiased;
     overscroll-behavior: none;
+    color-scheme: light;
   }
 
   body {
     overscroll-behavior: none;
+  }
+
+  html.dark {
+    color-scheme: dark;
   }
 
   /* handles safari overscroll background color */
