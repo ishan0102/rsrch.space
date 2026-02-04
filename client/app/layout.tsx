@@ -32,9 +32,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <link rel="icon" href="/favicon.ico" sizes="any" />
-      <body>
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "(function(){try{var k='rsrch.theme';var t=localStorage.getItem(k);var d=(t==='dark')||(!t&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.classList.toggle('dark',d);}catch(e){}})();",
+          }}
+        />
+      </head>
+      <body className="bg-off-white text-gray-800 dark:bg-off-black dark:text-gray-100">
         <Analytics />
         {children}
       </body>
