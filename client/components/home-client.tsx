@@ -69,7 +69,7 @@ export default function HomeClient({ entries }: HomeClientProps) {
                     <XIcon className="h-3.5 w-3.5" />
                   </button>
                 )}
-                <div className="relative max-w-[240px] flex-grow">
+                <div className="relative flex-grow sm:max-w-[240px]">
                   <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
                     <SearchIcon className="h-4 w-4 text-gray-500" />
                   </div>
@@ -86,7 +86,7 @@ export default function HomeClient({ entries }: HomeClientProps) {
                 </div>
                 <button
                   onClick={() => handleFilterToggle("arxiv")}
-                  className={`flex h-[42px] items-center justify-center rounded-md border border-gray-400 ${
+                  className={`hidden sm:flex h-[42px] items-center justify-center rounded-md border border-gray-400 ${
                     filters.arxiv
                       ? "bg-primary text-white"
                       : "bg-[#f0eadd] text-gray-600"
@@ -99,7 +99,7 @@ export default function HomeClient({ entries }: HomeClientProps) {
                 </button>
                 <button
                   onClick={() => handleFilterToggle("ai")}
-                  className={`flex h-[42px] items-center justify-center rounded-md border border-gray-400 ${
+                  className={`hidden sm:flex h-[42px] items-center justify-center rounded-md border border-gray-400 ${
                     filters.ai
                       ? "bg-primary text-white"
                       : "bg-[#f0eadd] text-gray-600"
@@ -110,10 +110,16 @@ export default function HomeClient({ entries }: HomeClientProps) {
                   />
                   <span>AI</span>
                 </button>
+                <button
+                  onClick={handleShuffleClick}
+                  className="flex sm:hidden h-[42px] w-[42px] items-center justify-center rounded-md border border-gray-400 bg-[#f0eadd] text-gray-600"
+                >
+                  <ShuffleIcon className="h-4 w-4 text-gray-600" />
+                </button>
               </div>
               <button
                 onClick={handleShuffleClick}
-                className="flex h-[42px] items-center justify-center rounded-md border border-gray-400 bg-[#f0eadd] px-4 py-2.5 text-sm font-medium text-gray-600"
+                className="hidden sm:flex h-[42px] items-center justify-center rounded-md border border-gray-400 bg-[#f0eadd] px-4 py-2.5 text-sm font-medium text-gray-600"
               >
                 <span className="mr-2">Random</span>
                 <ShuffleIcon className="h-4 w-4 text-gray-600" />
