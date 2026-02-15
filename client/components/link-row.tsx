@@ -30,18 +30,18 @@ export function LinkRow({ title, created, link, onDomainClick }: LinkRowProps) {
         <span className="mt-1 flex-shrink-0">
           <Favicon domain={domain} />
         </span>
-        <strong className="break-word font-medium text-gray-900 group-hover:text-primary sm:break-normal">
+        <strong className="break-word font-medium text-gray-900 dark:text-gray-100 group-hover:text-primary sm:break-normal">
           {title}
         </strong>
       </a>
       <div className="flex items-center gap-3 flex-shrink-0">
         <button
           onClick={handleDomainClick}
-          className="hidden sm:block text-xs text-gray-500 hover:text-primary"
+          className="hidden sm:block text-xs text-gray-500 dark:text-gray-500 hover:text-primary dark:hover:text-primary"
         >
           {baseDomain}
         </button>
-        <p className="font-berkeley text-gray-500 text-sm whitespace-nowrap">
+        <p className="font-berkeley text-gray-500 dark:text-gray-500 text-sm whitespace-nowrap">
           {formatDate(created)}
         </p>
       </div>

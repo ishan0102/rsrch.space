@@ -54,6 +54,10 @@
     color: #f5f5f5;
     filter: invert(1);
   }
+
+  .dark ::selection {
+    filter: none;
+  }
 }
 
 @layer utilities {
