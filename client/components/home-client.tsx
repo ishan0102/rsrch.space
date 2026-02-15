@@ -52,7 +52,7 @@ export default function HomeClient({ entries }: HomeClientProps) {
               <h1 className="text-base font-medium text-primary font-fransans">
                 rsrch space
               </h1>
-              <div className="flex items-center">
+              <div className="flex items-center gap-4">
                 <Link
                   href="https://ishanshah.me"
                   className="text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary"
