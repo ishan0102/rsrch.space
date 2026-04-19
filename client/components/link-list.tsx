@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { LinkRow } from "./link-row";
 import { normalizeForSearch, transformArxivUrl, getBaseDomain } from "@/lib/utils";
 import { matchesFilters } from "@/lib/filters";
@@ -15,6 +15,8 @@ interface LinkListProps {
   onFilteredCountChange: (count: number) => void;
   onFilteredEntriesChange: (entries: Entry[]) => void;
 }
+
+const PAGE_SIZE = 50;
 
 export function LinkList({
   entries,
@@ -38,14 +40,40 @@ export function LinkList({
     });
   }, [entries, searchTerm, filters, selectedDomain]);
 
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
+  const sentinelRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    setVisibleCount(PAGE_SIZE);
+  }, [filteredEntries]);
+
   useEffect(() => {
     onFilteredCountChange(filteredEntries.length);
     onFilteredEntriesChange(filteredEntries);
   }, [filteredEntries, onFilteredCountChange, onFilteredEntriesChange]);
 
+  useEffect(() => {
+    const sentinel = sentinelRef.current;
+    if (!sentinel) return;
+    if (visibleCount >= filteredEntries.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0]?.isIntersecting) {
+          setVisibleCount((prev) => Math.min(prev + PAGE_SIZE, filteredEntries.length));
+        }
+      },
+      { rootMargin: "800px 0px" },
+    );
+    observer.observe(sentinel);
+    return () => observer.disconnect();
+  }, [visibleCount, filteredEntries.length]);
+
+  const visibleEntries = filteredEntries.slice(0, visibleCount);
+
   return (
     <>
-      {filteredEntries.map((entry, index) => (
+      {visibleEntries.map((entry, index) => (
         <LinkRow
           key={index}
           title={entry.title}
@@ -54,6 +82,7 @@ export function LinkList({
           onDomainClick={onDomainClick}
         />
       ))}
+      {visibleCount < filteredEntries.length && <div ref={sentinelRef} aria-hidden />}
     </>
   );
 }
