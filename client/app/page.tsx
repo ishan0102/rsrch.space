@@ -7,6 +7,9 @@ export const dynamic = "force-dynamic";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY!;
+if (!supabaseKey?.startsWith("sb_publishable_")) {
+  throw new Error("Configure a Supabase publishable key for the reading list.");
+}
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 async function getEntries(): Promise<Entry[]> {
