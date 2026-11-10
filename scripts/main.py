@@ -5,7 +5,7 @@ import sys
 from datetime import datetime, timedelta, timezone
 from dotenv import load_dotenv
 from notion_client import Client
-from supabase import create_client
+import httpx
 
 load_dotenv()
 logging.disable(sys.maxsize)
@@ -59,29 +59,24 @@ def fetch_recent_links(notion, database_id):
     return links
 
 
-def upsert_links(supabase, links):
-    for i in range(0, len(links), 100):
-        batch = links[i:i + 100]
-        try:
-            supabase.table("links").upsert(batch).execute()
-        except Exception:
-            for link in batch:
-                try:
-                    supabase.table("links").upsert(link).execute()
-                except Exception:
-                    pass
+def upsert_links(links):
+    url = os.environ["SUPABASE_URL"] + "/rest/v1/links"
+    headers = {"apikey": os.environ["SUPABASE_KEY"], "Prefer": "resolution=merge-duplicates"}
+    with httpx.Client(timeout=30) as client:
+        for offset in range(0, len(links), 100):
+            response = client.post(url, headers=headers, params={"on_conflict": "url"}, json=links[offset:offset + 100])
+            response.raise_for_status()
 
 
 if __name__ == "__main__":
     notion = Client(auth=os.getenv("NOTION_TOKEN"))
-    supabase = create_client(os.getenv("SUPABASE_URL"), os.getenv("SUPABASE_KEY"))
     
     print("Syncing links from Notion...")
     links = fetch_recent_links(notion, os.getenv("LINKS_DATABASE_ID"))
     
     if links:
         print(f"Upserting {len(links)} links to Supabase...")
-        upsert_links(supabase, links)
+        upsert_links(links)
         print("Done.")
     else:
         print("No recent links found.")
